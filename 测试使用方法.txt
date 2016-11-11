@@ -1,0 +1,2 @@
+吧二维码图片放到release/img目录
+运行release/mxdemo.exe 查看解码结果
