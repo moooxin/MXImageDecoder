@@ -1,0 +1,8 @@
+*.sdf
+*.exp
+*.user
+*.filters
+*.ilk
+ipch/
+MXDemo/Debug/
+MXDemo/Release/
