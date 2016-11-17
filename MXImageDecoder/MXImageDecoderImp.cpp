@@ -11,35 +11,35 @@ namespace mx
 {
 	int UTF8ToGBK(const char * lpUTF8Str, char * lpGBKStr, int nGBKStrLen)
 	{
-		if (!lpUTF8Str)  //Èç¹ûUTF8×Ö·û´®ÎªNULLÔò³ö´íÍË³ö
+		if (!lpUTF8Str)  //å¦‚æœUTF8å­—ç¬¦ä¸²ä¸ºNULLåˆ™å‡ºé”™é€€å‡º
 			return 0;
 
 		wchar_t * lpUnicodeStr = NULL;
 		int nRetLen = 0;
 
-		nRetLen = ::MultiByteToWideChar(CP_UTF8, 0, (char *)lpUTF8Str, -1, NULL, NULL);  //»ñÈ¡×ª»»µ½Unicode±àÂëºóËùĞèÒªµÄ×Ö·û¿Õ¼ä³¤¶È
-		lpUnicodeStr = new WCHAR[nRetLen + 1];  //ÎªUnicode×Ö·û´®¿Õ¼ä
-		nRetLen = ::MultiByteToWideChar(CP_UTF8, 0, (char *)lpUTF8Str, -1, lpUnicodeStr, nRetLen);  //×ª»»µ½Unicode±àÂë
-		if (!nRetLen)  //×ª»»Ê§°ÜÔò³ö´íÍË³ö
+		nRetLen = ::MultiByteToWideChar(CP_UTF8, 0, (char *)lpUTF8Str, -1, NULL, NULL);  //è·å–è½¬æ¢åˆ°Unicodeç¼–ç åæ‰€éœ€è¦çš„å­—ç¬¦ç©ºé—´é•¿åº¦
+		lpUnicodeStr = new WCHAR[nRetLen + 1];  //ä¸ºUnicodeå­—ç¬¦ä¸²ç©ºé—´
+		nRetLen = ::MultiByteToWideChar(CP_UTF8, 0, (char *)lpUTF8Str, -1, lpUnicodeStr, nRetLen);  //è½¬æ¢åˆ°Unicodeç¼–ç 
+		if (!nRetLen)  //è½¬æ¢å¤±è´¥åˆ™å‡ºé”™é€€å‡º
 			return 0;
 
-		nRetLen = ::WideCharToMultiByte(CP_ACP, 0, lpUnicodeStr, -1, NULL, NULL, NULL, NULL);  //»ñÈ¡×ª»»µ½GBK±àÂëºóËùĞèÒªµÄ×Ö·û¿Õ¼ä³¤¶È
+		nRetLen = ::WideCharToMultiByte(CP_ACP, 0, lpUnicodeStr, -1, NULL, NULL, NULL, NULL);  //è·å–è½¬æ¢åˆ°GBKç¼–ç åæ‰€éœ€è¦çš„å­—ç¬¦ç©ºé—´é•¿åº¦
 
-		if (!lpGBKStr)  //Êä³ö»º³åÇøÎª¿ÕÔò·µ»Ø×ª»»ºóĞèÒªµÄ¿Õ¼ä´óĞ¡
+		if (!lpGBKStr)  //è¾“å‡ºç¼“å†²åŒºä¸ºç©ºåˆ™è¿”å›è½¬æ¢åéœ€è¦çš„ç©ºé—´å¤§å°
 		{
 			if (lpUnicodeStr)
 				delete[]lpUnicodeStr;
 			return nRetLen;
 		}
 
-		if (nGBKStrLen < nRetLen)  //Èç¹ûÊä³ö»º³åÇø³¤¶È²»¹»ÔòÍË³ö
+		if (nGBKStrLen < nRetLen)  //å¦‚æœè¾“å‡ºç¼“å†²åŒºé•¿åº¦ä¸å¤Ÿåˆ™é€€å‡º
 		{
 			if (lpUnicodeStr)
 				delete[]lpUnicodeStr;
 			return 0;
 		}
 
-		nRetLen = ::WideCharToMultiByte(CP_ACP, 0, lpUnicodeStr, -1, (char *)lpGBKStr, nRetLen, NULL, NULL);  //×ª»»µ½GBK±àÂë
+		nRetLen = ::WideCharToMultiByte(CP_ACP, 0, lpUnicodeStr, -1, (char *)lpGBKStr, nRetLen, NULL, NULL);  //è½¬æ¢åˆ°GBKç¼–ç 
 
 		if (lpUnicodeStr)
 			delete[]lpUnicodeStr;
