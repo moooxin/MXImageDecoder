@@ -1,4 +1,4 @@
-// MXDemo.cpp : ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
+// MXDemo.cpp : å®šä¹‰æ§åˆ¶å°åº”ç”¨ç¨‹åºçš„å…¥å£ç‚¹ã€‚
 //
 
 #include "stdafx.h"
@@ -22,17 +22,17 @@ int UTF8ToGBK(const char * lpUTF8Str, char * lpGBKStr, int nGBKStrLen);
 
 void GetFiles(const string& path, vector<string>& files)
 {
-	//ÎÄ¼ş¾ä±ú  
+	//æ–‡ä»¶å¥æŸ„  
 	long   hFile = 0;
-	//ÎÄ¼şĞÅÏ¢  
+	//æ–‡ä»¶ä¿¡æ¯  
 	struct _finddata_t fileinfo;  
 	string p;  
 	if((hFile = _findfirst(p.assign(path).append("\\*").c_str(),&fileinfo)) !=  -1)  
 	{  
 		do  
 		{  
-			//Èç¹ûÊÇÄ¿Â¼,µü´úÖ®  
-			//Èç¹û²»ÊÇ,¼ÓÈëÁĞ±í  
+			//å¦‚æœæ˜¯ç›®å½•,è¿­ä»£ä¹‹  
+			//å¦‚æœä¸æ˜¯,åŠ å…¥åˆ—è¡¨  
 			if((fileinfo.attrib &  _A_SUBDIR))  
 			{
 				if(strcmp(fileinfo.name,".") != 0  &&  strcmp(fileinfo.name,"..") != 0)  
@@ -50,7 +50,7 @@ void GetFiles(const string& path, vector<string>& files)
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	HINSTANCE hnst = LoadLibrary(L"MXImageDecoder");//µÃµ½¶¯Ì¬Á´½Ó¿âµÄ¾ä±ú 
+	HINSTANCE hnst = LoadLibrary(L"MXImageDecoder");//å¾—åˆ°åŠ¨æ€é“¾æ¥åº“çš„å¥æŸ„ 
 
 	char *buffer; 
 	if ((buffer = _getcwd(NULL, 0)) == NULL)
@@ -67,11 +67,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	//string path = "C:\\Users\\mx-home\\Desktop\\MXImageDecoder\\MXImageDecoder\\Release";
 #endif
 	path += "\\img";
-	cout << "Í¼Æ¬Ä¿Â¼£º" << path << endl;
+	cout << "å›¾ç‰‡ç›®å½•ï¼š" << path << endl;
 
 	vector<string> files;
 	GetFiles(path, files);
-	cout << "ÎÄ¼şÊıÁ¿£º" << files.size() << endl;
+	cout << "æ–‡ä»¶æ•°é‡ï¼š" << files.size() << endl;
 
 	if(files.size())
 		DecodeFiles(files);
@@ -83,11 +83,11 @@ int _tmain(int argc, _TCHAR* argv[])
 
 void DecodeFiles(const vector<string>& files)
 {
-	HINSTANCE hnst = LoadLibrary(L"MXImageDecoder");//µÃµ½¶¯Ì¬Á´½Ó¿âµÄ¾ä±ú 
+	HINSTANCE hnst = LoadLibrary(L"MXImageDecoder");//å¾—åˆ°åŠ¨æ€é“¾æ¥åº“çš„å¥æŸ„ 
 
 	if (hnst == NULL)
 	{
-		cout << "¼ÓÔØMXImageDecoderÊ§°Ü£¡" << GetLastError() << endl;
+		cout << "åŠ è½½MXImageDecoderå¤±è´¥ï¼" << GetLastError() << endl;
 
 		return ;
 	}
@@ -95,12 +95,12 @@ void DecodeFiles(const vector<string>& files)
 	typedef DecodeResult(__cdecl *decoderfunction)(const char *, DecodeInfo **);
 	typedef void(__cdecl *destroyfunction)(DecodeInfo *);
 
-	decoderfunction dec = (decoderfunction)GetProcAddress(hnst, "DecodeImageFile");//µÃµ½¶¯Ì¬Á´½Ó¿âÖĞaddµ¼³öº¯ÊıµÄµØÖ· 
+	decoderfunction dec = (decoderfunction)GetProcAddress(hnst, "DecodeImageFile");//å¾—åˆ°åŠ¨æ€é“¾æ¥åº“ä¸­addå¯¼å‡ºå‡½æ•°çš„åœ°å€ 
 	destroyfunction des = (destroyfunction)GetProcAddress(hnst, "DestoryDecodeInfo");
 
 	if (!dec || !des)
 	{
-		cout << "»ñµÃº¯ÊıµØÖ·Ê§°Ü!" << endl;
+		cout << "è·å¾—å‡½æ•°åœ°å€å¤±è´¥!" << endl;
 
 		return ;
 	}
@@ -112,7 +112,7 @@ void DecodeFiles(const vector<string>& files)
 
 	if (!allocfunc || !destroyfunc)
 	{
-		cout << "»ñµÃº¯ÊıµØÖ·Ê§°Ü!" << endl;
+		cout << "è·å¾—å‡½æ•°åœ°å€å¤±è´¥!" << endl;
 
 		return ;
 	}
@@ -122,7 +122,7 @@ void DecodeFiles(const vector<string>& files)
 
 	if (!decoder)
 	{
-		cout << "»ñµÃ½âÂëÆ÷Ê§°Ü!" << endl;
+		cout << "è·å¾—è§£ç å™¨å¤±è´¥!" << endl;
 
 		return;
 	}
@@ -131,7 +131,7 @@ void DecodeFiles(const vector<string>& files)
 	int failcount = 0;
 	for (int i = 0; i < files.size(); i++)
 	{
-		cout << "½âÂëÎÄ¼ş£º" << files[i] << endl;
+		cout << "è§£ç æ–‡ä»¶ï¼š" << files[i] << endl;
 
 #if TEST_C_API
 
@@ -152,7 +152,7 @@ void DecodeFiles(const vector<string>& files)
 			else
 			{
 				failcount++;
-				cout << "½âÂëÊ§°Ü!" << endl;
+				cout << "è§£ç å¤±è´¥!" << endl;
 			}
 		}
 #endif
@@ -160,10 +160,10 @@ void DecodeFiles(const vector<string>& files)
 		cout << "-----------------------------------" << endl;
 	}
 
-	cout << "½âÂë½áÊø£¡\nÒ»¹²£º" << files.size()
-		<< "£»³É¹¦£º" << files.size() - failcount
-		<< "£»Ê§°Ü£º" << failcount
-		<< "£»Ê§°Ü±È£º%" << (failcount / (float)files.size()) * 100 << endl;
+	cout << "è§£ç ç»“æŸï¼\nä¸€å…±ï¼š" << files.size()
+		<< "ï¼›æˆåŠŸï¼š" << files.size() - failcount
+		<< "ï¼›å¤±è´¥ï¼š" << failcount
+		<< "ï¼›å¤±è´¥æ¯”ï¼š%" << (failcount / (float)files.size()) * 100 << endl;
 
 
 
@@ -171,12 +171,12 @@ void DecodeFiles(const vector<string>& files)
 	destroyfunc(decoder);
 #endif
 
-	FreeLibrary(hnst);//ÊÍ·Å¶¯Ì¬Á´½Ó¿â 
+	FreeLibrary(hnst);//é‡Šæ”¾åŠ¨æ€é“¾æ¥åº“ 
 }
 
 void OnResult(const DecodeInfo *info)
 {
-	cout << "½âÂëÊıÁ¿£º" << info->count << endl;
+	cout << "è§£ç æ•°é‡ï¼š" << info->count << endl;
 
 	if (info->count)
 	{
@@ -186,7 +186,7 @@ void OnResult(const DecodeInfo *info)
 			DataInfo data = info->data[i];
 
 			UTF8ToGBK(data.data, szResult, 1024);
-			cout << "½âÂëÄÚÈİ¡¾" << i + 1 << "¡¿£º" << szResult << endl;
+			cout << "è§£ç å†…å®¹ã€" << i + 1 << "ã€‘ï¼š" << szResult << endl;
 		}
 	}
 
@@ -194,35 +194,35 @@ void OnResult(const DecodeInfo *info)
 
 int UTF8ToGBK(const char * lpUTF8Str, char * lpGBKStr, int nGBKStrLen)
 {
-	if (!lpUTF8Str)  //Èç¹ûUTF8×Ö·û´®ÎªNULLÔò³ö´íÍË³ö
+	if (!lpUTF8Str)  //å¦‚æœUTF8å­—ç¬¦ä¸²ä¸ºNULLåˆ™å‡ºé”™é€€å‡º
 		return 0;
 
 	wchar_t * lpUnicodeStr = NULL;
 	int nRetLen = 0;
 
-	nRetLen = ::MultiByteToWideChar(CP_UTF8, 0, (char *)lpUTF8Str, -1, NULL, NULL);  //»ñÈ¡×ª»»µ½Unicode±àÂëºóËùĞèÒªµÄ×Ö·û¿Õ¼ä³¤¶È
-	lpUnicodeStr = new WCHAR[nRetLen + 1];  //ÎªUnicode×Ö·û´®¿Õ¼ä
-	nRetLen = ::MultiByteToWideChar(CP_UTF8, 0, (char *)lpUTF8Str, -1, lpUnicodeStr, nRetLen);  //×ª»»µ½Unicode±àÂë
-	if (!nRetLen)  //×ª»»Ê§°ÜÔò³ö´íÍË³ö
+	nRetLen = ::MultiByteToWideChar(CP_UTF8, 0, (char *)lpUTF8Str, -1, NULL, NULL);  //è·å–è½¬æ¢åˆ°Unicodeç¼–ç åæ‰€éœ€è¦çš„å­—ç¬¦ç©ºé—´é•¿åº¦
+	lpUnicodeStr = new WCHAR[nRetLen + 1];  //ä¸ºUnicodeå­—ç¬¦ä¸²ç©ºé—´
+	nRetLen = ::MultiByteToWideChar(CP_UTF8, 0, (char *)lpUTF8Str, -1, lpUnicodeStr, nRetLen);  //è½¬æ¢åˆ°Unicodeç¼–ç 
+	if (!nRetLen)  //è½¬æ¢å¤±è´¥åˆ™å‡ºé”™é€€å‡º
 		return 0;
 
-	nRetLen = ::WideCharToMultiByte(CP_ACP, 0, lpUnicodeStr, -1, NULL, NULL, NULL, NULL);  //»ñÈ¡×ª»»µ½GBK±àÂëºóËùĞèÒªµÄ×Ö·û¿Õ¼ä³¤¶È
+	nRetLen = ::WideCharToMultiByte(CP_ACP, 0, lpUnicodeStr, -1, NULL, NULL, NULL, NULL);  //è·å–è½¬æ¢åˆ°GBKç¼–ç åæ‰€éœ€è¦çš„å­—ç¬¦ç©ºé—´é•¿åº¦
 
-	if (!lpGBKStr)  //Êä³ö»º³åÇøÎª¿ÕÔò·µ»Ø×ª»»ºóĞèÒªµÄ¿Õ¼ä´óĞ¡
+	if (!lpGBKStr)  //è¾“å‡ºç¼“å†²åŒºä¸ºç©ºåˆ™è¿”å›è½¬æ¢åéœ€è¦çš„ç©ºé—´å¤§å°
 	{
 		if (lpUnicodeStr)
 			delete[]lpUnicodeStr;
 		return nRetLen;
 	}
 
-	if (nGBKStrLen < nRetLen)  //Èç¹ûÊä³ö»º³åÇø³¤¶È²»¹»ÔòÍË³ö
+	if (nGBKStrLen < nRetLen)  //å¦‚æœè¾“å‡ºç¼“å†²åŒºé•¿åº¦ä¸å¤Ÿåˆ™é€€å‡º
 	{
 		if (lpUnicodeStr)
 			delete[]lpUnicodeStr;
 		return 0;
 	}
 
-	nRetLen = ::WideCharToMultiByte(CP_ACP, 0, lpUnicodeStr, -1, (char *)lpGBKStr, nRetLen, NULL, NULL);  //×ª»»µ½GBK±àÂë
+	nRetLen = ::WideCharToMultiByte(CP_ACP, 0, lpUnicodeStr, -1, (char *)lpGBKStr, nRetLen, NULL, NULL);  //è½¬æ¢åˆ°GBKç¼–ç 
 
 	if (lpUnicodeStr)
 		delete[]lpUnicodeStr;
