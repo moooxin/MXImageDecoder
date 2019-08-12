@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "MXImageDecoderImp.h"
 #include <iostream>
 #include <zbar.h>

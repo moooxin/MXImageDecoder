@@ -2,7 +2,15 @@
 *.exp
 *.user
 *.filters
+*.obj
+*.iobj
 *.ilk
+*.log
+*.idb
+*.ipdb
+*.tlog
+*.pch
+.vs/
 ipch/
 MXDemo/Debug/
 MXDemo/Release/
