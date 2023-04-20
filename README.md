@@ -1,5 +1,6 @@
 # mximagedecoder
-图形码识别（条码，二维码....） Zbar + Opencv
+# 已实现
+## 图形码识别（条码，二维码....） Zbar + Opencv
 
 # 规划实现：
 ## 1、文字识别
